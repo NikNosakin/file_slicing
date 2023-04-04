@@ -32,27 +32,22 @@ def archive_compression(archive_name, a):
     """Функция для архивации и сжатия папки archive_folder, в которой лежат файлы, полученные в результате выполнения функции cut_file""" 
     if 'gzip' in a:
         command = f'tar zcvf {archive_name}.tar.gz archive_folder/'
-        try:
-            subprocess.run(path_to_file, shell=True)
-            subprocess.run(command, shell=True)
-        except subprocess.CalledProcessError as comm:
-            sys.stderr.write(str(comm))
+        return command
     elif 'bz2' in a:
         command = f'tar jcvf {archive_name}.tar.bz2 archive_folder/'
-        try:
-            subprocess.run(path_to_file, shell=True)
-            subprocess.run(command, shell=True)
-        except subprocess.CalledProcessError as comm:
-            sys.stderr.write(str(comm))
+        return command
     elif a == '0':
         command = f'tar cvf {archive_name}.tar archive_folder/'
+        return command
+
+def com(command):
         try:
             subprocess.run(path_to_file, shell=True)
             subprocess.run(command, shell=True)
         except subprocess.CalledProcessError as comm:
             sys.stderr.write(str(comm))
-
-
+            
+            
 parser = argparse.ArgumentParser()
 parser.add_argument('--path_to_file',
                     help='В аргументах указать абсолютный путь до файла, который надо "нарезать".',
@@ -72,4 +67,4 @@ a = args.a
 
 
 cut_file(path_to_file)
-archive_compression(archive_name, a)
+com(archive_compression(archive_name, a))
