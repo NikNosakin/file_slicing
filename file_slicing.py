@@ -16,7 +16,6 @@ def cut_file(path_to_file):
             line = line.strip()
             if '###' in line:
                 count += 1
-                continue
             new_file = f'words_{count}.txt'
             if new_file not in names:
                 names.append(new_file)
